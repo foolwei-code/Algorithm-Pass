@@ -1,6 +1,6 @@
-#include<iostream>
+ï»¿#include<iostream>
 using namespace std;
-// ²âÊÔÁ´½Ó : https://leetcode.cn/problems/partition-list/
+// æµ‹è¯•é“¾æŽ¥ : https://leetcode.cn/problems/partition-list/
 struct ListNode {
     int val;
     ListNode* next;
@@ -13,7 +13,7 @@ struct ListNode {
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
-        //¶¨Òå4¸öÖ¸Õë
+        //å®šä¹‰4ä¸ªæŒ‡é’ˆ
         ListNode* smallhead = nullptr, * smalltail = nullptr;
         ListNode* bighead = nullptr, * bigtail = nullptr;
         if (head == nullptr || head->next == nullptr)

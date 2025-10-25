@@ -1,9 +1,9 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<vector>
 using namespace std;
-//Éè¼ÆË«¶Ë¶ÓÁĞ
-//¸úÖ®Ç°Ò»Ñù£¬ÎÒÕâÀïÖ»Ìá¹©Êı×éµÄÊµÏÖ·½Ê½£¬Á´±íµÄÊµÏÖ·½Ê½Çë×ÔĞĞÑ§Ï°
-// ²âÊÔÁ´½Ó : https://leetcode.cn/problems/design-circular-deque/
+//è®¾è®¡åŒç«¯é˜Ÿåˆ—
+//è·Ÿä¹‹å‰ä¸€æ ·ï¼Œæˆ‘è¿™é‡Œåªæä¾›æ•°ç»„çš„å®ç°æ–¹å¼ï¼Œé“¾è¡¨çš„å®ç°æ–¹å¼è¯·è‡ªè¡Œå­¦ä¹ 
+// æµ‹è¯•é“¾æ¥ : https://leetcode.cn/problems/design-circular-deque/
 class MyCircularDeque {
 public:
     MyCircularDeque(int k) {

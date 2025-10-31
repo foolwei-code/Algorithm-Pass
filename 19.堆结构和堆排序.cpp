@@ -1,10 +1,10 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<vector>
 #include<random>
 #include<ctime>
 #include<algorithm>
 using namespace std;
-//ÓÃÊı×éÊµÏÖ´ó¸ù¶Ñ(Ğ¡¸ù¶Ñ¸Ä¸ö´óĞ¡ÓÚºÅ¼´¿É£©
+//ç”¨æ•°ç»„å®ç°å¤§æ ¹å †(å°æ ¹å †æ”¹ä¸ªå¤§å°äºå·å³å¯ï¼‰
 vector<int>heap;
 int heapsize;
 void HeapInsert(int i)
@@ -56,11 +56,11 @@ int main()
 		if (temp == heap)
 		{
 			if (cnt % 100 == 0)
-				cout << "µÚ" << cnt << "×é²âÊÔ³É¹¦" << endl;
+				cout << "ç¬¬" << cnt << "ç»„æµ‹è¯•æˆåŠŸ" << endl;
 		}
 		else
 		{
-			cout << "²âÊÔÊ§°Ü" << endl;
+			cout << "æµ‹è¯•å¤±è´¥" << endl;
 		}
 	}
 	return 0;

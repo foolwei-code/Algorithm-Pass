@@ -1,9 +1,9 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<vector>
 #include<random>
 #include<climits>
 using namespace std;
-//²âÊÔÁ´½Ó£ºhttps://leetcode.cn/problems/divide-two-integers/
+//æµ‹è¯•é“¾æ¥ï¼šhttps://leetcode.cn/problems/divide-two-integers/
 class Solution {
 public:
 	int divide(int dividend, int divisor) {
@@ -21,12 +21,12 @@ public:
 		int offset = divisor > 0 ? neg(1) : 1;
 		return add(ans, offset);
 	}
-	//1.Î»ÔËËãÊµÏÖ¼Ó·¨
+	//1.ä½è¿ç®—å®ç°åŠ æ³•
 	int add(int a, int b)
 	{
 		int ans, carry;
-		ans = a ^ b;  //aÓëbÎŞ½øÎ»Ïà¼Ó
-		carry = a & b;  //»ñÈ¡½øÎ»ĞÅÏ¢
+		ans = a ^ b;  //aä¸bæ— è¿›ä½ç›¸åŠ 
+		carry = a & b;  //è·å–è¿›ä½ä¿¡æ¯
 		while (carry)
 		{
 			int temp = ans;
@@ -35,19 +35,19 @@ public:
 		}
 		return ans;
 	}
-	//2.Î»ÔËËãÊµÏÖ¼õ·¨
-	//»ñµÃaµÄÏà·´Êı-a=~a+1
+	//2.ä½è¿ç®—å®ç°å‡æ³•
+	//è·å¾—açš„ç›¸åæ•°-a=~a+1
 	int neg(int a)
 	{
 		return add(~a, 1);
 	}
 	int sub(int a, int b)
 	{
-		//a-b¾ÍÊÇa+(-b)
+		//a-bå°±æ˜¯a+(-b)
 		return add(a, neg(b));
 	}
-	//3.Î»ÔËËãÊµÏÖ³Ë·¨
-	int unsignmove(int x, int bit)//½øĞĞÎŞ·ûºÅÓÒÒÆ
+	//3.ä½è¿ç®—å®ç°ä¹˜æ³•
+	int unsignmove(int x, int bit)//è¿›è¡Œæ— ç¬¦å·å³ç§»
 	{
 		if (x >= 0)
 			return x >> bit;
@@ -73,8 +73,8 @@ public:
 		}
 		return ans;
 	}
-	//ÓÃÎ»ÔËËãÊµÏÖ³ı·¨
-	int div(int a, int b)//a,b²»ÄÜÊÇÕûÊı×îĞ¡Öµ
+	//ç”¨ä½è¿ç®—å®ç°é™¤æ³•
+	int div(int a, int b)//a,bä¸èƒ½æ˜¯æ•´æ•°æœ€å°å€¼
 	{
 		int ans = 0;
 		int x = a < 0 ? neg(a) : a;
@@ -101,11 +101,11 @@ int main()
 		if (p.div(a, b) == a / b)
 		{
 			if (k % 100 == 0)
-				cout << "µÚ" << k << "×é²âÊÔ³É¹¦" << endl;
+				cout << "ç¬¬" << k << "ç»„æµ‹è¯•æˆåŠŸ" << endl;
 		}
 		else
 		{
-			cout << "²âÊÔÊ§°Ü" << endl;
+			cout << "æµ‹è¯•å¤±è´¥" << endl;
 		}
 	}
 	return 0;

@@ -5,7 +5,7 @@ using namespace std;
   struct ListNode {
      int val;
       ListNode *next;
-      ListNode(int x) : val(x), next(NULL) {}
+      ListNode(int x) : val(x), next(nullptr) {}
   };
  
   class Solution1 {
@@ -107,6 +107,89 @@ using namespace std;
               pre = pre->next;
           }
           return true;
+      }
+  };
+  // 4.复制带随机指针的链表
+  // 测试链接 : https://leetcode.cn/problems/copy-list-with-random-pointer/
+  class Node {
+  public:
+      int val;
+      Node* next;
+      Node* random;
+
+      Node(int _val) {
+          val = _val;
+          next = nullptr;
+          random = nullptr;
+      }
+  };
+  class Solution4 {
+  public:
+      Node* copyRandomList(Node* head) {
+          if (head == nullptr)
+              return head;
+          Node* cur = head;
+          //将每个链表节点的后面跟一个copy链表节点
+          while (cur != nullptr)
+          {
+              Node* next = cur->next;
+              Node* middle = new Node(cur->val);
+              cur->next = middle;
+              middle->next = next;
+              cur = next;
+          }
+          Node* pre = head;
+          Node* copyhead = nullptr;
+          copyhead = cur = head->next;
+          //先进行random指针的复制
+          while (cur != nullptr)
+          {
+              cur->random = pre->random == nullptr ? nullptr : pre->random->next;
+              pre = pre->next->next;
+              cur = cur->next == nullptr ? nullptr : cur->next->next;
+          }
+          //将两个链表分开
+          pre = head, cur = head->next;
+          while (cur != nullptr)
+          {
+              pre->next = cur->next;
+              cur->next = cur->next == nullptr ? nullptr : cur->next->next;
+              pre = pre->next;
+              cur = cur->next;
+          }
+          return copyhead;
+      }
+  };
+  // 5.返回链表的第一个入环节点
+// 测试链接 : https://leetcode.cn/problems/linked-list-cycle-ii/
+  class Solution5 {
+  public:
+      ListNode* detectCycle(ListNode* head) {
+          if (head == nullptr || head->next == nullptr)
+              return nullptr;
+          ListNode* fast = head, * slow = head;
+          bool flag = false;
+          ListNode* ans = nullptr;
+          //快指针一次走两步，慢指针一次走一步
+          while (fast->next != nullptr && fast->next->next != nullptr)
+          {
+              slow = slow->next;
+              fast = fast->next->next;
+              if (fast == slow)
+              {
+                  flag = true;
+                  break;
+              }
+          }
+          if (flag)
+          {
+              //快指针回到原点，接下来两个指针都一次走一步
+              fast = head;
+              while (fast != slow)
+                  fast = fast->next, slow = slow->next;
+              ans = fast;
+          }
+          return ans;
       }
   };
 int main()

@@ -1,5 +1,6 @@
 ﻿#include<iostream>
 #include<vector>
+#include<string>
 using namespace std;
 // 1.二叉树的层序遍历
 // 测试链接 : https://leetcode.cn/problems/binary-tree-level-order-traversal/
@@ -149,6 +150,57 @@ public:
 			rightdepth = f(root->right);
 		return min(leftdepth, rightdepth) + 1;
 	}
+};
+//6.// 二叉树先序序列化和反序列化
+// 测试链接 : https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/
+class Codec {
+public:
+	string serialize(TreeNode* root) {
+		string ans;
+		f(ans, root);
+		return ans;
+	}
+
+	void f(string& ans, TreeNode* root) {
+		if (root == nullptr) {
+			ans += "#,";
+			return;
+		}
+		ans += to_string(root->val) + ",";
+		f(ans, root->left);
+		f(ans, root->right);
+	}
+
+	TreeNode* deserialize(string data) {
+		// 使用vector存储分割后的token
+		vector<string> tokens;
+		string token;
+		for (char c : data) {
+			if (c == ',') {
+				tokens.push_back(token);
+				token.clear();
+			}
+			else {
+				token += c;
+			}
+		}
+        counter = 0;
+		return g(tokens);
+	}
+
+	TreeNode* g(vector<string>& tokens) {
+		if ( tokens[counter] == "#") {
+			counter++;
+			return nullptr;
+		}
+		TreeNode* root = new TreeNode(stoi(tokens[counter++]));
+		root->left = g(tokens);
+		root->right = g(tokens);
+		return root;
+	}
+
+private:
+	int counter;
 };
 int main()
 {

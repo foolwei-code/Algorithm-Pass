@@ -97,11 +97,22 @@ public:
     }
 
     bool remove(int val) {
-
+        if (map.count(val))
+        {
+            int index = map[val];
+            swap(arr[index], arr[--size]);
+            arr.pop_back();
+            map[arr[index]] = index;
+            map.erase(val);
+            return true;
+        }
+        return false;
     }
 
     int getRandom() {
-
+        static default_random_engine e(time(0));
+        uniform_int_distribution<int>u(0, size - 1);
+        return arr[u(e)];
     }
 private:
     vector<int>arr;

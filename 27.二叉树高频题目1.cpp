@@ -1,6 +1,8 @@
 ﻿#include<iostream>
 #include<vector>
 #include<string>
+#include<queue>
+#include<unordered_map>
 using namespace std;
 // 1.二叉树的层序遍历
 // 测试链接 : https://leetcode.cn/problems/binary-tree-level-order-traversal/
@@ -201,6 +203,158 @@ public:
 
 private:
 	int counter;
+};
+// 7.二叉树按层序列化和反序列化
+// 测试链接 : https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/
+class Codec {
+public:
+	string serialize(TreeNode* root) {
+		string ans;
+		queue<TreeNode*>queue;
+		queue.push(root);
+		while (!queue.empty())
+		{
+			TreeNode* front = queue.front();
+			queue.pop();
+			if (front == nullptr)
+				ans += "#,";
+			else
+			{
+				ans += to_string(front->val) + ",";
+				queue.push(front->left);
+				queue.push(front->right);
+			}
+		}
+		return ans;
+	}
+	TreeNode* deserialize(string data) {
+		//用vector数组进行分割
+		vector<string>arr;
+		string s;
+		for (int i = 0; i < data.size(); i++)
+		{
+			while (data[i] != ',')
+				s += data[i++];
+			arr.push_back(s);
+			s.clear();
+		}
+		counter = 0;
+		queue<TreeNode*>queue;
+		if (arr[counter] == "#")
+			return nullptr;
+		TreeNode* root = new TreeNode(stoi(arr[counter++]));
+		queue.push(root);
+		while (!queue.empty())
+		{
+			TreeNode* front = queue.front();
+			queue.pop();
+			if (arr[counter] != "#")
+			{
+				front->left = new TreeNode(stoi(arr[counter]));
+				queue.push(front->left);
+			}
+			counter++;
+			if (arr[counter] != "#")
+			{
+				front->right = new TreeNode(stoi(arr[counter]));
+				queue.push(front->right);
+			}
+			counter++;
+		}
+		return root;
+	}
+
+private:
+	int counter;
+};
+//8.利用先序与中序遍历序列构造二叉树
+// 测试链接 : https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+class Solution8 {
+public:
+	TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+		int n = preorder.size();
+		unordered_map<int, int>map;
+		for (int i = 0; i < n; i++)
+			map[inorder[i]] = i;
+		return f(0, n - 1, 0, n - 1, preorder, inorder, map);
+	}
+	TreeNode* f(int l1, int r1, int l2, int r2, vector<int>& preorder, vector<int>& inorder, unordered_map<int, int>& map)
+	{
+		if (l1 > r1)
+			return nullptr;
+		TreeNode* head = new TreeNode(preorder[l1]);
+		if (l1 == r1)
+			return  head;
+		int k = map[preorder[l1]];
+		head->left = f(l1 + 1, l1 + k - l2, l2, k - 1, preorder, inorder, map);
+		head->right = f(l1 + k - l2 + 1, r1, k + 1, r2, preorder, inorder, map);
+		return head;
+
+	}
+};
+//9.验证完全二叉树
+// 测试链接 : https://leetcode.cn/problems/check-completeness-of-a-binary-tree/
+class Solution9 {
+public:
+	bool isCompleteTree(TreeNode* root) {
+		if (root == nullptr)
+			return true;
+		queue<TreeNode*>queue;
+		queue.push(root);
+		bool flag = false;
+		while (!queue.empty())
+		{
+			TreeNode* front = queue.front();
+			queue.pop();
+			if ((front->left == nullptr && front->right != nullptr) || (flag && (front->left != nullptr || front->right != nullptr)))
+				return false;
+			if (front->left == nullptr || front->right == nullptr)
+				flag = true;
+			if (front->left != nullptr)
+				queue.push(front->left);
+			if (front->right != nullptr)
+				queue.push(front->right);
+		}
+		return true;
+	}
+};
+// 10.求完全二叉树的节点个数
+// 测试链接 : https://leetcode.cn/problems/count-complete-tree-nodes/
+class Solution {
+public:
+	int countNodes(TreeNode* root) {
+		//return f1(root);普通方法：时间复杂度O(n)
+		if (root == nullptr)
+			return 0;
+		//奇妙方法：时间复杂度O((logn)^2)
+		return f2(root,height(root));
+	}
+	int f1(TreeNode* root)
+	{
+		return root == nullptr ? 0 : f1(root->left) + f1(root->right) + 1;
+	}
+	int f2(TreeNode* root,int high)
+	{
+		if (root == nullptr)
+			return 0;
+		//判断右子树能否扎到树高-1的位置
+		int rh = height(root->right);
+		bool flag = rh + 1 == high;
+		if (flag)
+		{
+			return (1 << (high - 1)) + f2(root->right,rh);
+		}
+		else
+		{
+			return (1 << (high - 2)) + f2(root->left, high-1);
+		}
+	}
+	int height(TreeNode* root)
+	{
+		if (root == nullptr)
+			return 0;
+		return height(root->left) + 1;
+	}
 };
 int main()
 {

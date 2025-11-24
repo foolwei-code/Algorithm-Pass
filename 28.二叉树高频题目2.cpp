@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<limits>
 using namespace std;
 struct TreeNode {
 	int val;
@@ -79,6 +80,82 @@ public:
 	}
 private:
 	vector<int>path;
+};
+// 4.验证平衡二叉树
+// 测试链接 : https://leetcode.cn/problems/balanced-binary-tree/
+class Solution4 {
+public:
+	bool isBalanced(TreeNode* root) {
+		 balance = true;
+		height(root);
+		return balance;
+	}
+	int height(TreeNode* root)
+	{
+		if (root == nullptr || !balance)
+			return 0;
+		int leftheight = height(root->left);
+		int rightheight = height(root->right);
+		if (abs(leftheight - rightheight) > 1)
+			balance = false;
+		return max(leftheight, rightheight) + 1;
+	}
+private:
+	bool balance;
+};
+// 5.验证搜索二叉树
+// 测试链接 : https://leetcode.cn/problems/validate-binary-search-tree/
+class Solution5 {
+public:
+	bool isValidBST(TreeNode* root) {
+		//way1:将该二叉树进行中序遍历，验证该序列是否是一个上升序列
+		//vector<int>arr;
+		/*f1(root, arr);
+		for (int i = 0; i < arr.size() - 1; i++)
+			if (arr[i] >=arr[i + 1])
+				return false;
+		return true;*/
+		//way2:树形dp
+		return f2(root);
+	}
+	void f1(TreeNode* root, vector<int>& arr)
+	{
+		if (root == nullptr)
+			return;
+		f1(root->left, arr);
+		arr.push_back(root->val);
+		f1(root->right, arr);
+	}
+	bool f2(TreeNode* root)
+	{
+		if (root == nullptr)
+		{
+			minnum = numeric_limits<long long>::max();
+			maxnum = numeric_limits<long long>::min();
+			return true;
+		}
+		bool lok = f2(root->left);
+		long long lmax = maxnum;
+		long long lmin = minnum;
+		bool rok = f2(root->right);
+		long long rmax = maxnum;
+		long long rmin = minnum;
+		//将maxnum与minnum进行修正
+		maxnum = mymax(mymax(lmax, rmax), root->val);
+		minnum = mymin(mymin(lmin, rmin), root->val);
+		return lok && rok && ((lmax < root->val) && (root->val < rmin));
+	}
+	long long mymax(long long a, long long b)
+	{
+		return a > b ? a : b;
+	}
+	long long mymin(long long a, long long b)
+	{
+		return a > b ? b : a;
+	}
+private:
+	long long minnum;
+	long long maxnum;
 };
 int main()
 {

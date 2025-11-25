@@ -157,6 +157,66 @@ private:
 	long long minnum;
 	long long maxnum;
 };
+//6.修剪搜索二叉树
+// 测试链接 : https://leetcode.cn/problems/trim-a-binary-search-tree/
+class Solution6 {
+public:
+	TreeNode* trimBST(TreeNode* root, int low, int high) {
+		if (root == nullptr)
+			return nullptr;
+		if (root->val > high)
+			return trimBST(root->left, low, high);
+		if (root->val < low)
+			return trimBST(root->right, low, high);
+		root->left = trimBST(root->left, low, high);
+		root->right = trimBST(root->right, low, high);
+		return root;
+	}
+};
+// 7.二叉树打家劫舍问题
+// 测试链接 : https://leetcode.cn/problems/house-robber-iii/
+class Solution7 {
+public:
+	//way1:暴力递归：时间复杂度太高，测试用例通过不了
+	int rob1(TreeNode* root) {
+		if (root == nullptr)
+			return 0;
+		//以选不选根节点作为划分标准
+		//1.不选根节点
+		int num1 = rob1(root->left) + rob1(root->right);
+		//2.选根节点
+		int num2 = root->val;
+		num2 += (root->left == nullptr ? 0 : rob1(root->left->left) + rob1(root->left->right));
+		num2 += (root->right == nullptr ? 0 : rob1(root->right->left) + rob1(root->right->right));
+		return max(num1, num2);
+	}
+	int rob(TreeNode* root)
+	{
+		f(root);
+		return max(yes, no);
+	}
+	void f(TreeNode* root)
+	{
+		if (root == nullptr)
+		{
+			yes = 0, no = 0;
+			return;
+		}
+		//同样以选不选根节点作为标准
+		int x = root->val,y=0;
+		f(root->left);
+		x += no;
+		y += max(yes, no);
+		f(root->right);
+		x += no;
+		y += max(yes, no);
+		yes = x;
+		no = y;
+	}
+private:
+	int yes;  //yes表示要当前根节点的最大值
+	int no;   //no表示不要当前根节点的最大值
+};
 int main()
 {
 

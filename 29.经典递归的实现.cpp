@@ -74,6 +74,53 @@ public:
         }
     }
 };
+// 3.没有重复项数字的全排列
+// 测试链接 : https://leetcode.cn/problems/permutations/
+class Solution3 {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>>ans;
+        f(0, nums, ans);
+        return ans;
+    }
+    void f(int i, vector<int>& nums, vector<vector<int>>& ans)
+    {
+        if (i == nums.size())
+            ans.push_back(nums);
+        for (int k = i; k < nums.size(); k++)
+        {
+            swap(nums[i], nums[k]);
+            f(i + 1, nums,ans);
+            //恢复现场
+            swap(nums[i], nums[k]);
+        }
+    }
+};
+// 4.有重复项数组的去重全排列
+// 测试链接 : https://leetcode.cn/problems/permutations-ii/
+class Solution4 {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>>ans;
+        f(0, nums, ans);
+        return  ans;
+    }
+    void f(int i, vector<int>& nums, vector<vector<int>>& ans)
+    {
+        if (i == nums.size())
+            ans.push_back(nums);
+        unordered_set<int>set;
+        for (int k = i; k < nums.size(); k++)
+        {
+            if (set.count(nums[k]))
+                continue;
+            set.insert(nums[k]);
+            swap(nums[i], nums[k]);
+            f(i + 1, nums, ans);
+            swap(nums[i], nums[k]);
+        }
+    }
+};
 int main()
 {
 	return 0;

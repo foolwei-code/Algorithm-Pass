@@ -78,3 +78,49 @@ public:
         }
     }
 };
+
+//3. 判断一个数字是否是若干数量(数量>1)的连续正整数的和
+class Solution3
+{
+public:
+    bool JudgeNumber1(int n)
+    {
+        for (int i = 1; i <= n; i++)
+        {
+            int res = 0;
+            //比较坑的一点：j必须小于等于，不能小于，特例：3
+            for (int j = i; j <= n; j++)
+            {
+                if (res > n)
+                    break;
+                else if (res == n)
+                    return true;
+                else
+                    res += j;
+            }
+        }
+        return false;
+    }
+    bool JudgeNumber2(int num)
+    {
+        return (num & (num - 1)) != 0;
+    }
+
+};
+
+// 4.可以用r、e、d三种字符拼接字符串，如果拼出来的字符串中
+// 有且仅有1个长度>=2的回文子串，那么这个字符串定义为"好串"
+// 返回长度为n的所有可能的字符串中，好串有多少个
+// 结果对 1000000007 取模， 1 <= n <= 10^9
+// 示例：
+// n = 1, 输出0
+// n = 2, 输出3
+// n = 3, 输出18
+class Solution4
+{
+public:
+    int CalculateGoodString(int n)
+    {
+
+    }
+};

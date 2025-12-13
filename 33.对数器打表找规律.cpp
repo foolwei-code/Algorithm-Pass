@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 using namespace std;
 // 1.有装下8个苹果的袋子、装下6个苹果的袋子，一定要保证买苹果时所有使用的袋子都装满
 // 对于无法装满所有袋子的方案不予考虑，给定n个苹果，返回至少要多少个袋子
@@ -119,8 +120,82 @@ public:
 class Solution4
 {
 public:
-    int CalculateGoodString(int n)
+    int CalculateGoodString1(int n)
     {
+        //1.生成长度为n的所有字符串
+        vector<string>stringset;
+        string str;
+        f(0, n, stringset, str);
+        int ans = 0;
+        //2.枚举字符串数组中的字符串，检查字符串是否合规
+        for (int i = 0; i < stringset.size(); i++)
+            if (check(stringset[i]))
+                ans++;
+        return ans;
+    }
+    void f(int i, int n, vector<string>& stringset, string& str)
+    {
+        if (i == n)
+        {
+            stringset.push_back(str);
+            return;
+        }
+        //1.选'r'字符
+        str.push_back('r');
+        f(i + 1, n, stringset, str);
+        str.pop_back();
+        //2.选'e'字符
+        str.push_back('e');
+        f(i + 1, n, stringset, str);
+        str.pop_back();
+        //2.选'd'字符
+        str.push_back('d');
+        f(i + 1, n, stringset, str);
+        str.pop_back();
+    }
+    bool check(string& str)
+    {
+        //枚举所有子串
+        int cnt = 0;
+        for (int i = 0; i < str.size(); i++)
+        {
+            string substr;
+            for (int j = i; j < str.size(); j++)
+            {
+                substr.push_back(str[j]);
+                if (calculate(substr))
+                    cnt++;
+            }
+        }
+        if (cnt == 1)
+            return true;
+        return false;
+    }
+    int calculate(string& substr)
+    {
+        //判断是否是回文
+        if (substr.size() == 1)
+            return false;
+        int l = 0, r = substr.size() - 1;
+        while (l <= r)
+        {
+            if (substr[l++] != substr[r++])
+                return false;
+        }
+        return true;
+    }
 
+    int CalculateGoodString2(int n)
+    {
+        if (n == 1) {
+            return 0;
+        }
+        if (n == 2) {
+            return 3;
+        }
+        if (n == 3) {
+            return 18;
+        }
+        return (int)(((long long)6 * (n + 1)) % 1000000007);
     }
 };

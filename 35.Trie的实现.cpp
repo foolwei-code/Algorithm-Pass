@@ -103,7 +103,7 @@ public:
         return node->pass;
     }
 };
-
+// 测试链接 : https://www.nowcoder.com/practice/7f8a8553ddbf4eaab749ec988726702b
 //用固定数组实现Tire(推荐)
 const int N = 1e5 + 5;
 std::vector<std::vector<int>>Trie(N, std::vector<int>(26));

@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include<unordered_set>
 using  namespace std;
 // 1.牛牛和他的朋友们约定了一套接头密匙系统，用于确认彼此身份
 // 密匙由一组数字序列表示，两个密匙被认为是一致的，如果满足以下条件：
@@ -102,7 +103,6 @@ public:
         for (auto p : nums)
             maxnum = max(p, maxnum);
         //算出最大元素的前导零的个数
-        zero_number = 0;
         zero_number = getzero(maxnum);
         //将每个数插入到前缀树上
         build();
@@ -169,12 +169,55 @@ public:
     }
 private:
     static const int N = 3000001;
-    static int Tree[N][2];
-    static int pass[N];
-    static  int end[N];
+    static vector<vector<int>>Tree;
+    static vector<int>pass;
+    static  vector<int> end;
     int cnt;
     int zero_number;
 };
-int Solution2::Tree[N][2];
-int Solution2::pass[N];
-int Solution2::end[N];
+vector<vector<int>>Solution2::Tree(N,vector<int>(2));
+vector<int>Solution2::pass(N);
+vector<int>Solution2::end(N);
+
+//用哈希表的方式实现题目2
+class Solution3 {
+public:
+    int findMaximumXOR(vector<int>& nums) {
+        int maxnum = numeric_limits<int>::min();
+        for (auto p : nums)
+            maxnum = max(p, maxnum);
+        //算出最大元素的前导零的个数
+        zero_number = getzero(maxnum);
+        int ans = 0;
+        for (int i = 31 - zero_number; i >= 0; i--)
+        {
+            int want = ans |(1 << i);
+            set.clear();
+            for (auto num : nums)
+            {
+                num = ((num >> i) << i);
+                if (set.count(num ^ want))
+                {
+                    ans = want;
+                    break;
+                }
+                set.insert(num);
+            }
+        }
+        return ans;
+    }
+    int getzero(int maxnum)
+    {
+        int cnt = 0;
+        while (maxnum != 0)
+        {
+            cnt++;
+            maxnum >>= 1;
+        }
+        return 32 - cnt;
+    }
+private:
+    unordered_set<int>set;
+    int zero_number;
+};
+

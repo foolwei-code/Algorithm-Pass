@@ -1,17 +1,17 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<vector>
 #include<string>
 #include<unordered_set>
 using  namespace std;
-// 1.Å£Å£ºÍËûµÄÅóÓÑÃÇÔ¼¶¨ÁËÒ»Ì×½ÓÍ·ÃÜ³×ÏµÍ³£¬ÓÃÓÚÈ·ÈÏ±Ë´ËÉí·İ
-// ÃÜ³×ÓÉÒ»×éÊı×ÖĞòÁĞ±íÊ¾£¬Á½¸öÃÜ³×±»ÈÏÎªÊÇÒ»ÖÂµÄ£¬Èç¹ûÂú×ãÒÔÏÂÌõ¼ş£º
-// ÃÜ³× b µÄ³¤¶È²»³¬¹ıÃÜ³× a µÄ³¤¶È¡£
-// ¶ÔÓÚÈÎÒâ 0 <= i < length(b)£¬ÓĞb[i+1] - b[i] == a[i+1] - a[i]
-// ÏÖÔÚ¸ø¶¨ÁËm¸öÃÜ³× b µÄÊı×é£¬ÒÔ¼°n¸öÃÜ³× a µÄÊı×é
-// ÇëÄã·µ»ØÒ»¸ö³¤¶ÈÎª m µÄ½á¹ûÊı×é ans£¬±íÊ¾Ã¿¸öÃÜ³×b¶¼ÓĞ¶àÉÙÒ»ÖÂµÄÃÜ³×
-// Êı×é a ºÍÊı×é b ÖĞµÄÔªËØ¸öÊı¾ù²»³¬¹ı 10^5
+// 1.ç‰›ç‰›å’Œä»–çš„æœ‹å‹ä»¬çº¦å®šäº†ä¸€å¥—æ¥å¤´å¯†åŒ™ç³»ç»Ÿï¼Œç”¨äºç¡®è®¤å½¼æ­¤èº«ä»½
+// å¯†åŒ™ç”±ä¸€ç»„æ•°å­—åºåˆ—è¡¨ç¤ºï¼Œä¸¤ä¸ªå¯†åŒ™è¢«è®¤ä¸ºæ˜¯ä¸€è‡´çš„ï¼Œå¦‚æœæ»¡è¶³ä»¥ä¸‹æ¡ä»¶ï¼š
+// å¯†åŒ™ b çš„é•¿åº¦ä¸è¶…è¿‡å¯†åŒ™ a çš„é•¿åº¦ã€‚
+// å¯¹äºä»»æ„ 0 <= i < length(b)ï¼Œæœ‰b[i+1] - b[i] == a[i+1] - a[i]
+// ç°åœ¨ç»™å®šäº†mä¸ªå¯†åŒ™ b çš„æ•°ç»„ï¼Œä»¥åŠnä¸ªå¯†åŒ™ a çš„æ•°ç»„
+// è¯·ä½ è¿”å›ä¸€ä¸ªé•¿åº¦ä¸º m çš„ç»“æœæ•°ç»„ ansï¼Œè¡¨ç¤ºæ¯ä¸ªå¯†åŒ™béƒ½æœ‰å¤šå°‘ä¸€è‡´çš„å¯†åŒ™
+// æ•°ç»„ a å’Œæ•°ç»„ b ä¸­çš„å…ƒç´ ä¸ªæ•°å‡ä¸è¶…è¿‡ 10^5
 // 1 <= m, n <= 1000
-// ²âÊÔÁ´½Ó : https://www.nowcoder.com/practice/c552d3b4dfda49ccb883a6371d9a6932
+// æµ‹è¯•é“¾æ¥ : https://www.nowcoder.com/practice/c552d3b4dfda49ccb883a6371d9a6932
 class Solution1 {
 public:
     vector<int> countConsistentKeys(vector<vector<int> >& b, vector<vector<int> >& a) {
@@ -91,24 +91,24 @@ private:
     vector<int>end;
 };
 
-// 2.Êı×éÖĞÁ½¸öÊıµÄ×î´óÒì»òÖµ
-// ¸øÄãÒ»¸öÕûÊıÊı×é nums £¬·µ»Ø nums[i] XOR nums[j] µÄ×î´óÔËËã½á¹û£¬ÆäÖĞ 0<=i<=j<=n
+// 2.æ•°ç»„ä¸­ä¸¤ä¸ªæ•°çš„æœ€å¤§å¼‚æˆ–å€¼
+// ç»™ä½ ä¸€ä¸ªæ•´æ•°æ•°ç»„ nums ï¼Œè¿”å› nums[i] XOR nums[j] çš„æœ€å¤§è¿ç®—ç»“æœï¼Œå…¶ä¸­ 0<=i<=j<=n
 // 1 <= nums.length <= 2 * 10^5
 // 0 <= nums[i] <= 2^31 - 1
-// ²âÊÔÁ´½Ó : https://leetcode.cn/problems/maximum-xor-of-two-numbers-in-an-array/
+// æµ‹è¯•é“¾æ¥ : https://leetcode.cn/problems/maximum-xor-of-two-numbers-in-an-array/
 class Solution2 {
 public:
     int findMaximumXOR(vector<int>& nums) {
         int maxnum = numeric_limits<int>::min();
         for (auto p : nums)
             maxnum = max(p, maxnum);
-        //Ëã³ö×î´óÔªËØµÄÇ°µ¼ÁãµÄ¸öÊı
+        //ç®—å‡ºæœ€å¤§å…ƒç´ çš„å‰å¯¼é›¶çš„ä¸ªæ•°
         zero_number = getzero(maxnum);
-        //½«Ã¿¸öÊı²åÈëµ½Ç°×ºÊ÷ÉÏ
+        //å°†æ¯ä¸ªæ•°æ’å…¥åˆ°å‰ç¼€æ ‘ä¸Š
         build();
         for (auto p : nums)
             insert(p);
-        //¼ÆËã×î´óÒì»òÖµ
+        //è®¡ç®—æœ€å¤§å¼‚æˆ–å€¼
         int ans = 0;
         for (auto p : nums)
         {
@@ -179,14 +179,14 @@ vector<vector<int>>Solution2::Tree(N,vector<int>(2));
 vector<int>Solution2::pass(N);
 vector<int>Solution2::end(N);
 
-//ÓÃ¹şÏ£±íµÄ·½Ê½ÊµÏÖÌâÄ¿2
+//ç”¨å“ˆå¸Œè¡¨çš„æ–¹å¼å®ç°é¢˜ç›®2
 class Solution3 {
 public:
     int findMaximumXOR(vector<int>& nums) {
         int maxnum = numeric_limits<int>::min();
         for (auto p : nums)
             maxnum = max(p, maxnum);
-        //Ëã³ö×î´óÔªËØµÄÇ°µ¼ÁãµÄ¸öÊı
+        //ç®—å‡ºæœ€å¤§å…ƒç´ çš„å‰å¯¼é›¶çš„ä¸ªæ•°
         zero_number = getzero(maxnum);
         int ans = 0;
         for (int i = 31 - zero_number; i >= 0; i--)
@@ -219,5 +219,56 @@ public:
 private:
     unordered_set<int>set;
     int zero_number;
+};
+
+// 3.åœ¨äºŒç»´å­—ç¬¦æ•°ç»„ä¸­æœç´¢å¯èƒ½çš„å•è¯
+// ç»™å®šä¸€ä¸ªÂ m x nÂ äºŒç»´å­—ç¬¦ç½‘æ ¼Â boardÂ å’Œä¸€ä¸ªå•è¯ï¼ˆå­—ç¬¦ä¸²ï¼‰åˆ—è¡¨Â words
+// è¿”å›æ‰€æœ‰äºŒç»´ç½‘æ ¼ä¸Šçš„å•è¯ã€‚å•è¯å¿…é¡»æŒ‰ç…§å­—æ¯é¡ºåºï¼Œé€šè¿‡Â ç›¸é‚»çš„å•å…ƒæ ¼Â å†…çš„å­—æ¯æ„æˆ
+// å…¶ä¸­â€œç›¸é‚»â€å•å…ƒæ ¼æ˜¯é‚£äº›æ°´å¹³ç›¸é‚»æˆ–å‚ç›´ç›¸é‚»çš„å•å…ƒæ ¼
+// åŒä¸€ä¸ªå•å…ƒæ ¼å†…çš„å­—æ¯åœ¨ä¸€ä¸ªå•è¯ä¸­ä¸å…è®¸è¢«é‡å¤ä½¿ç”¨
+// 1 <= m, n <= 12
+// 1 <= words.length <= 3 * 10^4
+// 1 <= words[i].length <= 10
+// æµ‹è¯•é“¾æ¥ : https://leetcode.cn/problems/word-search-ii/
+//way1:ç”¨hashè¿›è¡Œæš´åŠ›æœç´¢ï¼Œè¶…æ—¶
+class Solution4 {
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        vector<string>ans;
+        set1.clear();
+        set2.clear();
+        for (auto p : words)
+            set1.insert(p);
+        string s;
+       //è¿›è¡Œdfs
+        for (int i = 0; i < board.size(); i++)
+            for (int j = 0; j < board[0].size(); j++)
+                f(i, j,board,s);
+        for (auto p : set2)
+            ans.push_back(p);
+        return ans;
+    }
+    void f(int i, int j,vector<vector<char>>&boards,string s)
+    {
+        if (i < 0 || i >= boards.size() || j < 0 || j >= boards[0].size())
+            return;
+        if (boards[i][j] == 0)
+            return;
+        char temp = boards[i][j];
+        boards[i][j] = 0;
+        s.push_back(temp);
+        if (set1.count(s) && !set2.count(s))
+            set2.insert(s);
+         
+        //ä¸Šä¸‹å·¦å³è¿›è¡Œæœç´¢
+        f(i + 1, j, boards, s);
+        f(i - 1, j, boards, s);
+        f(i, j + 1, boards, s);
+        f(i, j - 1, boards, s);
+        boards[i][j] = temp;
+    }
+private:
+    unordered_set<string>set1;
+    unordered_set<string>set2;
 };
 
